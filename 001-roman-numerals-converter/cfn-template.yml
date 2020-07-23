@@ -9,14 +9,44 @@ Resources:
   MySecurityGroup:
     Type: "AWS::EC2::Security Group"
     Properties:
-      GroupDescription: 
+      GroupDescription: Enables HTTP for Flask Web MyWebServer
+      GroupName: Flask-WS-SG
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
 
   MyWebServer:
     Type: "AWS::EC2::Instance"
     Properties:
-      ImageId: "ami-016b213e65284e9c9"
+      ImageId: ami-016b213e65284e9c9
+      InstanceType: t2.micro
+      SecurityGroupIds:
+        -  !Ref MySecurityGroup
+      Tags:
+        -  
+          Key: Name
+          Value: !Sub Web Server of ${AWS::StackName} StackName
+      UserData:
+        Fn::Base64:
+          !Sub |
+          #! /bin/bash
+          yum update -y
+          yum install python3 -y
+          pip3 install flask
+          wget -P templates index.html
+          wget -P templates result.html
+          wget app.py
+          python3 app.py
 
 Outputs:
   WebsiteURL:
     Description: Roman Numerals Converter App Website URL
-    Value: Value to return
+    Value: !Sub
+      - http://${PublicAddress}
+      - PublicAddress: !GetAtt MyWebServer.PublicDnsName
