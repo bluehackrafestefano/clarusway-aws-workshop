@@ -7,10 +7,10 @@ Description: >
 
 Resources:
   MySecurityGroup:
-    Type: AWS::EC2::Security Group
+    Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: Enables HTTP for Flask Web MyWebServer
-      GroupName: ssh-and-http
+      GroupName: Flask-WS-SG
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: 80
