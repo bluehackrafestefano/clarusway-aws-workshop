@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Clarusway Project - 001</title>
+  <title>Clarusway Project - 002</title>
   <style>
     body {
       max-width: 600px;
@@ -50,6 +50,9 @@
       color: red;
     }
 
+    .sectionnote{
+      color: rgba(190, 31, 164, 0.89);
+    }
     .footnote{
       color: rgba(0, 0, 255, 0.712);
     }
@@ -61,19 +64,25 @@
 
   <div><img src="https://clarusway.com/wp-content/uploads/2020/06/clarusway_logo.png" /></div>
 
-  <h2>Project : Roman Numerals Converter Application</h2>
-  <p>This application converts decimal numbers to Roman numerals. Only numbers from 1 to 3999 are allowed.</p><br>
+  <h1>Project : Phonebook Application</h1>
+  <h2>Welcome to {{developer_name}}'s Phonebook Application</h2>
+  <h2 class="sectionnote">Enter a name to search</h2>
 
-  <form action="/" method="post">
-    <label for="number"><b>Please enter a number:</b></label>
-    <input placeholder="50" name="number" id="number" required />
-    <button type="submit">Submit</button>
-    {% if not_valid %}
-    <p class="warning"><b>Not Valid! Please enter a number between 1 and 3999, inclusively.</b></p>
+  <form action="#" method="post">
+    <label for="name"><b>Name:</b></label>
+    <input placeholder="Keyword" type="text" name="username" id="name">
+    <button type="submit">Search</button>
+    {% if show_result %}
+        <h1>Result for '{{ keyword }}' </h1>
+            <ul> 
+            {% for person in persons %}
+            <li>Name: <b>{{ person['name'] }} </b>  ---- Phone Number: <b>{{ person['number'] }}</b></li>
+            {% endfor %}
+            </ul>
     {% endif %}
   </form>
 
-  <p class="footnote"><i>This app is developed in Python by <b>{{ Rafe Stefano }}</b> and deployed with Flask on AWS EC2 Instance using AWS Clouldformation Service.</i></p>
+  <p class="footnote"><i>This app is developed in Python by <b>{{ developer_name }}</b> and deployed with Flask on AWS Cloud using Clouldformation Service.</i></p>
 </body>
 
 </html>
